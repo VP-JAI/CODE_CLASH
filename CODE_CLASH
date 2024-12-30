@@ -1,0 +1,13 @@
+#magical subarrays 
+
+n, k= map(int, input().split())
+arr=[int(j) for j in input().split()]
+sub=[]
+asub=[]
+for f in range(1,len(arr)):
+    sub.append(arr[:f])
+for d in sub:
+    if (sum(d)%k)==0:
+        asub.append(d)
+for k in asub:
+    print(k)
