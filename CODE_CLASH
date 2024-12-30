@@ -1,4 +1,5 @@
 #magical subarrays 
+#py3
 
 n, k= map(int, input().split())
 arr=[int(j) for j in input().split()]
@@ -11,3 +12,38 @@ for d in sub:
         asub.append(d)
 for k in asub:
     print(k)
+
+
+
+#COVERT STARTING WORD INTO TARGET WORD
+
+from collections import deque
+
+def word_transformations_bfs(dictionary, start, target):
+    if target not in dictionary:
+        return -1
+    
+    queue = deque([(start, 0)])  # (current_word, transformation_count)
+    visited = set([start])
+    
+    while queue:
+        current_word, transformations = queue.popleft()
+        
+        if current_word == target:
+            return transformations
+        
+        for i in range(len(current_word)):
+            for char in 'abcdefghijklmnopqrstuvwxyz':
+                next_word = current_word[:i] + char + current_word[i+1:]
+                if next_word in dictionary and next_word not in visited:
+                    visited.add(next_word)
+                    queue.append((next_word, transformations + 1))
+    
+    return -1
+
+
+n, m =map(int, input().split())
+lol=[f for f in [input() for _ in range(n+1)]]
+dictionary = lol[:len(lol)-2]
+start, target = map(str, lol[len(lol)-1].split())
+print(word_transformations_bfs(dictionary, start, target))
